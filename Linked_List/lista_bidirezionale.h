@@ -25,14 +25,13 @@ typedef LinkedList* PList;
 
 // Operations
 
-
 void createList(PList lista);
 void insertHead(PList lista, int key);
 void insertTail(PList lista, int key);
-void insertInPosition(PList lista, int key);
+void insertInPosition(PList lista, int key, int position);
 void deleteHead(PList lista, int key);
 void deleteTail(PList lista, int key);
-void deleteInPosition(PList lista, int key);
+void deleteInPosition(PList lista, int key, int position);
 void printList(PList lista);
 void deleteList(PList lista);
 
