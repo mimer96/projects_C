@@ -79,8 +79,25 @@ void insertInPosition(PList lista, int key, int position){
     // Controllo se lista esiste
     if(lista == NULL) exit(1);
 
-    // Verifica della position
-    if(position < 1) exit(1);
+    // Verifica esattezza dell'input position
+    if(position < 1 || position > lista->counter + 1) exit(1);
+
+    // Se position in testa
+    if(position == 1){
+        insertHead(lista, key);
+        return;
+    }
+
+    // Se position in coda
+    if(position == lista->counter + 1){
+        insertTail(lista, key);
+        return;
+    }
+
+    // Ricerca del nodo in position nella lista
+    Node* tmp = lista->head;
+    for(int i = 1; i < position - 1; i++)
+        tmp = tmp->next;
 
     // Creazione nodo
     Node* newNode = (Node*)malloc(sizeof(Node));
@@ -89,24 +106,80 @@ void insertInPosition(PList lista, int key, int position){
     newNode->next = NULL;
     newNode->prec = NULL;
 
-    // Aggiunta nuovo nodo in position della lista
-    if(lista->counter == 0){
-        lista->head = newNode;
-        lista->tail = newNode;
+    // Immissione del nuovo nodo nella lista
+    newNode->next = tmp->next;
+    newNode->prec = tmp;
+    tmp->next->prec = newNode;
+    tmp->next = newNode;
+    lista->counter++;
+}
+
+// Elimina un nodo in testa
+void deleteHead(PList lista){
+
+    // Controllo se lista esiste
+    if(lista == NULL) exit(1);
+
+    // Elimina il nodo in testa
+    if(lista->counter == 1){
+        free(lista->head);
+        lista->head = lista->tail = NULL;
     }
-    if(position == 1) insertHead(lista, key);
-    if(position >= lista->counter) insertTail(lista, key);
-    if(position > 1 && position < lista->counter){
-        int counter = 1;
-        for(Node* tmp = lista->head; tmp != lista->tail; tmp = tmp->next){
-            if(counter == position){
-                newNode->next = tmp;
-                newNode->prec = tmp->prec;
-                tmp->prec->next = newNode;
-                tmp->prec = newNode;
-                lista->counter++;
-            }
-            counter++;
-        }
+    else{
+        Node* tmp = lista->head->next;
+        tmp->prec = NULL;
+        free(lista->head);
+        lista->head = tmp;
     }
+    lista->counter--;
+}
+
+//Elimina nodo in coda
+void deleteTail(PList lista){
+
+    // Controllo se lista esiste
+    if(lista == NULL) exit(1);
+
+    // Elimina il nodo in coda
+    if(lista->counter == 1){
+        free(lista->tail);
+        lista->head = lista->tail = NULL;
+    }
+    else{
+        Node* tmp = lista->tail->prec;
+        tmp->next = NULL;
+        free(lista->tail);
+        lista->tail = tmp;
+    }
+    lista->counter--;
+}
+
+// Elimina nodo in position
+void deleteInPosition(PList lista, int position){
+
+    // Controllo se lista esiste
+    if(lista == NULL) exit(1);
+
+    // Verifica della position
+    if(position < 1) exit(1);
+
+    if(position == 1){
+        deleteHead(lista);
+        return;
+    }
+
+    if(position == lista->counter){
+        deleteTail(lista);
+        return;
+    }
+
+    Node* tmp = lista->head;
+    for(int i = 1; i < position; i++)
+        tmp = tmp->next;
+
+    tmp->prec->next = tmp->next;
+    tmp->next->prec = tmp->prec;
+    free(tmp);
+
+    lista->counter--;
 }

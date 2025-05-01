@@ -1,9 +1,14 @@
 # depslib dependency file v1.0
-1746029213 source:c:\users\michael\onedrive\uni\algoritmi e programmazione avanzata\linked_list\lista_bidirezionale.c
+1746121779 source:c:\users\michael\onedrive\uni\algoritmi e programmazione avanzata\linked_list\lista_bidirezionale.c
 	"lista_bidirezionale.h"
 
-1746029234 c:\users\michael\onedrive\uni\algoritmi e programmazione avanzata\linked_list\lista_bidirezionale.h
+1746115492 c:\users\michael\onedrive\uni\algoritmi e programmazione avanzata\linked_list\lista_bidirezionale.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
+
+1746121861 source:c:\users\michael\onedrive\uni\algoritmi e programmazione avanzata\linked_list\main.c
+	<stdio.h>
+	<stdlib.h>
+	"lista_bidirezionale.h"
 
